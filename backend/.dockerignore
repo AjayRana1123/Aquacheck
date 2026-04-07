@@ -1,0 +1,9 @@
+node_modules
+npm-debug.log
+.env
+.git
+.gitignore
+*.pkl
+# Optional: Exclude models if you want to pull them from elsewhere, 
+# but here they seem to be part of the repo so we keep them.
+# !models/

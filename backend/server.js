@@ -37,8 +37,15 @@ app.post('/api/predict', async (req, res) => {
     }
 
     // Call predict.py script
-    const pythonProcess = spawn('python', ['predict.py']);
+    const pythonProcess = spawn('python3', ['predict.py']);
     
+    pythonProcess.on('error', (err) => {
+      console.error("Failed to start python process:", err);
+      if (!res.headersSent) {
+        return res.status(500).json({ error: "Prediction service unavailable." });
+      }
+    });
+
     let modelOutput = '';
     let modelError = '';
 
