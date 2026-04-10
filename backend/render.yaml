@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: aquacheck-backend
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: MONGO_URI
+        sync: false   # Set this manually in the Render dashboard
+      - key: MONGO_DB_NAME
+        value: waterquality
+    autoDeploy: true

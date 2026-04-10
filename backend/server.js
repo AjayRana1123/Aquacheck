@@ -8,6 +8,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Health check endpoint for Render
+app.get('/health', (req, res) => res.status(200).json({ status: 'ok' }));
+
+
 const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri, {
   serverApi: {
@@ -30,15 +34,16 @@ connectDB();
 app.post('/api/predict', async (req, res) => {
   try {
     const { userId, features } = req.body;
-    
+
     // Validate inputs
     if (!userId || !features) {
       return res.status(400).json({ error: "Missing userId or features string" });
     }
 
     // Call predict.py script
-    const pythonProcess = spawn('python3', ['predict.py']);
-    
+    const pythonCmd = process.platform === 'win32' ? 'python' : 'python3';
+    const pythonProcess = spawn(pythonCmd, ['predict.py']);
+
     pythonProcess.on('error', (err) => {
       console.error("Failed to start python process:", err);
       if (!res.headersSent) {
@@ -66,7 +71,7 @@ app.post('/api/predict', async (req, res) => {
 
       try {
         const result = JSON.parse(modelOutput);
-        
+
         if (!result.success) {
           return res.status(500).json({ error: result.error || "Prediction failed" });
         }
@@ -75,7 +80,7 @@ app.post('/api/predict', async (req, res) => {
         try {
           const db = client.db(process.env.MONGO_DB_NAME);
           const collection = db.collection('predictions');
-          
+
           const document = {
             userId,
             features,
@@ -89,7 +94,7 @@ app.post('/api/predict', async (req, res) => {
           console.error("MongoDB Insert Error:", dbError);
           return res.json({ success: true, drinkable: result.drinkable, message: "Prediction successful, but failed to save to database." });
         }
-        
+
       } catch (parseError) {
         console.error("Error parsing python output:", modelOutput);
         return res.status(500).json({ error: "Error parsing prediction result" });
@@ -113,10 +118,10 @@ app.get('/api/history/:userId', async (req, res) => {
 
     const db = client.db(process.env.MONGO_DB_NAME);
     const collection = db.collection('predictions');
-    
+
     // Sort by timestamp descending (newest first)
     const history = await collection.find({ userId }).sort({ timestamp: -1 }).toArray();
-    
+
     res.json({ success: true, history });
   } catch (error) {
     console.error("Error fetching history:", error);
