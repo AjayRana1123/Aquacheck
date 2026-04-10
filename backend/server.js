@@ -13,23 +13,29 @@ app.get('/health', (req, res) => res.status(200).json({ status: 'ok' }));
 
 
 const uri = process.env.MONGO_URI;
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
+let client = null;
 
-async function connectDB() {
-  try {
-    await client.connect();
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } catch (error) {
-    console.error("MongoDB connection error:", error);
+if (!uri) {
+  console.error("⚠️  WARNING: MONGO_URI environment variable is not set. Database features will be unavailable.");
+} else {
+  client = new MongoClient(uri, {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    }
+  });
+
+  async function connectDB() {
+    try {
+      await client.connect();
+      console.log("✅ Pinged your deployment. You successfully connected to MongoDB!");
+    } catch (error) {
+      console.error("MongoDB connection error:", error);
+    }
   }
+  connectDB();
 }
-connectDB();
 
 app.post('/api/predict', async (req, res) => {
   try {
@@ -77,6 +83,9 @@ app.post('/api/predict', async (req, res) => {
         }
 
         // Save result to MongoDB
+        if (!client) {
+          return res.json({ success: true, drinkable: result.drinkable, message: "Prediction successful (DB not configured, result not saved)." });
+        }
         try {
           const db = client.db(process.env.MONGO_DB_NAME);
           const collection = db.collection('predictions');
@@ -116,6 +125,9 @@ app.get('/api/history/:userId', async (req, res) => {
     const { userId } = req.params;
     if (!userId) return res.status(400).json({ error: "Missing userId" });
 
+    if (!client) {
+      return res.status(503).json({ error: "Database not configured. Please set MONGO_URI." });
+    }
     const db = client.db(process.env.MONGO_DB_NAME);
     const collection = db.collection('predictions');
 
