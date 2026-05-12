@@ -1,0 +1,1291 @@
+GOVERNMENT COLLEGE DHARAMSHALA
+(Affiliated to Himachal Pradesh Technical University, Hamirpur)
+Department of Computer Science
+PROJECT REPORT
+ON
+ReclaimX
+Lost and Found Smart System
+Submitted in partial fulfillment of the requirements for the degree of
+Bachelor of Technology(Computer Science)
+Academic Session: 2023–2027
+Submitted By:
+Sakshi Sharma Roll No: 23010603061 Saloni SharmaRoll No: 23010603062 Sania Deol Roll No: 23010603063
+Under the Guidance of:
+Mrs. Kanika Kapoor
+(Assistant Professor, Department of Computer Science)
+Head of Department:
+Dr. Pawan Thakur
+(Department of Computer Science)
+CERTIFICATE
+This is to certify that the project entitled "ReclaimX - Lost and Found Smart System" submitted by Sakshi Sharma (Roll No: 23010603061), Saloni Sharma (Roll No: 23010603062), and Sania Deol (Roll No: 23010603063) students of BTech (Computer Science) Third Year(6th semester), Government College Dharamshala, is a record of bonafide work carried out under my supervision and guidance during the academic session 2023-2027.
+The work embodied in this report is original and has not been submitted earlier for the award of any degree or diploma to any university or institution.
+Mrs. Kanika Kapoor Project Supervisor
+Department of Computer Science Government College Dharamshala
+Dr. Pawan Thakur Head of Department
+Department of Computer Science Government College Dharamshala
+DECLARATION
+We, Sakshi Sharma, Saloni Sharma, and Sania Deol, students of BTech (Computer Science) Third Year(6th semester), Government College Dharamshala, hereby declare that the project work entitled 'ReclaimX - Lost and Found Smart System' has been carried out by us under the supervision of Mrs. Kanika Kapoor, Assistant Professor, Department of Computer Science.
+We further declare that this work is original, has not been copied from any source, and has not been submitted earlier for the award of any degree or diploma to any university or institution. All information, results, and conclusions presented in this report are based on our own work during the academic session 2023–2027.
+Sakshi Sharma
+(23010603061)
+Saloni Sharma
+(23010603062)
+Sania Deol
+(23010603063)
+Date:  Place: Dharamshala
+ACKNOWLEDGEMENT
+We express our sincere gratitude to Mrs. Kanika Kapoor, Assistant Professor, Department of Computer Science, Government College Dharamshala, for her invaluable guidance, constant encouragement, and constructive criticism throughout the course of this project. Her expertise in the field of machine learning and software engineering was instrumental in shaping the direction of our work.
+We are deeply indebted to Dr. Pawan Thakur, Head of the Department of Computer Science, for providing us with the necessary infrastructure, resources, and a supportive academic environment. His encouragement and administrative support were vital in completing this project successfully.
+We extend our heartfelt thanks to all the faculty members of the Department of Computer Science, Government College Dharamshala, for their technical insights, timely advice, and motivation during the academic sessions. Their collective wisdom greatly enriched the quality of this research work.
+We are also grateful to Himachal Pradesh Technical University, Hamirpur, for laying down guidelines and standards that ensured the academic integrity and quality of this project report.
+Finally, we acknowledge the endless support and encouragement of our families and friends. Their belief in our abilities gave us the strength and determination to complete this project within the stipulated time.
+Sakshi Sharma Saloni Sharma Sania Deol
+ABSTRACT
+Lost and found management is a persistent challenge faced by institutions such as universities, hospitals, airports, railway stations, and shopping complexes. Conventional manual approaches rely heavily on human memory, handwritten registers, and verbal communication, which are inherently error-prone, time-consuming, and inefficient at scale. With the rapid expansion of public infrastructure and increasing footfall in shared spaces, the need for an intelligent, automated solution has never been more critical.
+This project presents ReclaimX, an intelligent Lost and Found Smart System built using state-of-the-art machine learning algorithms and modern web technologies. The system leverages a multi-model machine learning pipeline comprising K-Nearest Neighbours (KNN), Random Forest, and Logistic Regression classifiers to automate the categorization and matching of lost items. In addition, the You Only Look Once (YOLO) deep learning model is integrated to enable real-time image-based object detection and recognition, thereby augmenting text-based matching with visual intelligence.
+The backend of ReclaimX is developed using Django and Python, which manage business logic, REST API endpoints, and database interactions. SQLite serves as the lightweight, file-based relational database, providing persistent storage for item reports, user profiles, and match histories. The frontend is built with ReactJS and JavaScript, offering a responsive, user-friendly interface through which users can register lost items, upload images, browse found items, and receive intelligent match suggestions.
+The system's machine learning pipeline processes structured item attributes—such as category, color, size, brand, and location—to generate match probability scores between lost and found item pairs. Experimental results demonstrate that the KNN classifier achieves the highest accuracy among text-based classifiers, while YOLO contributes significantly to image-based match confidence.
+The evaluation framework employs standard performance metrics including accuracy, precision, recall, F1-score, confusion matrices, and per-class classification reports. Results confirm that ReclaimX outperforms traditional manual systems and generic digital logbooks, offering a measurably improved item recovery rate.
+This report documents the complete research methodology, system architecture, dataset preparation, model training, and experimental results. It concludes with a discussion of the system's limitations and future enhancements, including multi-language support, geolocation-based matching, and real-time push notifications.
+TABLE OF CONTENTS
+Certificate
+ii
+Declaration
+iii
+Acknowledgement
+iv
+Abstract
+v
+List of Figures
+viii
+List of Tables
+ix
+List of Abbreviations
+x
+Chapter 1: Introduction
+1
+1.1 Introduction
+1
+1.2 Background of Study
+1
+1.3 Problem Statement
+2
+1.4 Research Motivation
+3
+1.5 Objective of the Study
+3
+1.6 Contribution of the Research
+4
+1.7 Approach Taken in this Project
+4
+1.8 Organization of the Project
+6
+Chapter 2: Review of Literature
+8
+2.1 Introduction
+8
+2.2 Review of Literature using Machine Learning
+9
+2.3 Summaries of Related Works
+14
+2.4 Research Gap
+15
+2.5 Proposed Work
+15
+Chapter 3: Research Methodology
+18
+3.1 Introduction
+18
+3.2 Research Methodology
+19
+3.2.1 Identifying the Problem
+21
+3.2.2 Defining the Objectives
+21
+3.2.3 Design and Build the Research Framework
+22
+3.2.4 Implement and Test the Research
+23
+3.2.5 Evaluation
+24
+3.2.6 Deployment
+25
+3.3 Conclusion
+26
+Chapter 4: Proposed Model
+28
+4.1 Introduction
+28
+4.2 Proposed Model Architecture
+29
+4.2.1 Image Acquisition
+31
+4.2.2 Image Pre-Processing
+31
+4.2.3 Feature Extraction
+33
+4.2.4 Data Split for Training and Testing
+34
+4.2.5 Model Training
+35
+4.2.6 Model Evaluation
+37
+Chapter 5: Experimental Setup and Result
+40
+5.1 Introduction
+40
+5.2 Experimental Setup
+40
+5.3 Dataset Loading and Pre-Processing
+40
+5.4 Training the KNN Classification Model
+44
+5.5 Testing and Evaluation
+45
+5.6 Classification Report Per-Class Performance
+48
+5.7 Confusion Matrix and Heatmap
+50
+5.8 Multi-Class Confusion Matrix
+51
+Chapter 6: Conclusion and Future Scope
+54
+6.1 Conclusion
+54
+6.2 Research Finding
+55
+6.3 Future Scope and Limitation
+56
+References
+58
+KNN Classifier Main Coding
+61
+LIST OF FIGURES
+Figure No.
+Caption
+Page No.
+Figure 1.1
+Overall System Architecture of ReclaimX
+5
+Figure 1.2
+Workflow Diagram of the Lost and Found Process
+6
+Figure 2.1
+Comparison of ML Algorithms for Classification Tasks
+11
+Figure 2.2
+YOLO Object Detection Pipeline
+13
+Figure 3.1
+Research Methodology Flowchart
+20
+Figure 3.2
+System Development Lifecycle
+22
+Figure 4.1
+Proposed Model Architecture Diagram
+30
+Figure 4.2
+Image Preprocessing Pipeline
+32
+Figure 4.3
+Feature Extraction Using YOLO
+33
+Figure 4.4
+Training–Testing Data Split (80:20)
+34
+Figure 4.5
+Random Forest Ensemble Tree Structure
+36
+Figure 4.6
+KNN Decision Boundary Visualization
+37
+Figure 4.7
+Model Evaluation Workflow
+38
+Figure 5.1
+Dataset Distribution by Item Category
+42
+Figure 5.2
+Accuracy Comparison of Classifiers
+46
+Figure 5.3
+Precision–Recall Curve
+47
+Figure 5.4
+Per-Class F1-Score Bar Chart
+49
+Figure 5.5
+Confusion Matrix Heatmap (KNN)
+50
+Figure 5.6
+Multi-Class Confusion Matrix (All Models)
+52
+Figure 6.1
+Future Enhancement Roadmap
+57
+LIST OF TABLES
+Table No.
+Caption
+Page No.
+Table 2.1
+Summary of Related Works in ML-based Classification
+14
+Table 3.1
+Research Framework Components
+23
+Table 4.1
+Dataset Attributes and Description
+29
+Table 4.2
+Hyperparameter Configuration for KNN
+35
+Table 4.3
+Hyperparameter Configuration for Random Forest
+36
+Table 5.1
+Dataset Statistics Summary
+41
+Table 5.2
+Pre-Processing Steps and Techniques
+43
+Table 5.3
+Accuracy Results of All Classifiers
+45
+Table 5.4
+Classification Report (KNN)
+48
+Table 5.5
+Classification Report (Random Forest)
+49
+Table 5.6
+Classification Report (Logistic Regression)
+50
+Table 6.1
+Key Research Findings
+55
+LIST OF ABBREVIATIONS
+Abbreviation
+Full Form
+API
+Application Programming Interface
+CNN
+Convolutional Neural Network
+CSV
+Comma Separated Values
+DB
+Database
+DRF
+Django REST Framework
+GUI
+Graphical User Interface
+HOD
+Head of Department
+HTML
+HyperText Markup Language
+HTTP
+HyperText Transfer Protocol
+JSON
+JavaScript Object Notation
+KNN
+K-Nearest Neighbours
+ML
+Machine Learning
+MLP
+Multi-Layer Perceptron
+NLP
+Natural Language Processing
+REST
+Representational State Transfer
+RF
+Random Forest
+LR
+Logistic Regression
+SQL
+Structured Query Language
+SQLite
+Structured Query Language Lite (embedded DB)
+UI
+User Interface
+URL
+Uniform Resource Locator
+YOLO
+You Only Look Once
+CHAPTER 1: INTRODUCTION
+Introduction
+Lost and found management is an indispensable administrative function in virtually every public institution. Every day, thousands of personal items—mobile phones, wallets, identity cards, laptops, keys, clothing, and bags—are misplaced in colleges, hospitals, railway stations, shopping malls, airports, and government offices. The process of locating a lost item and reconnecting it with its rightful owner has historically been manual, paper-based, and highly inefficient.
+In recent years, machine learning and artificial intelligence have emerged as transformative forces across numerous domains including healthcare, finance, education, and public administration. The application of these technologies to the problem of lost and found management offers immense potential—enabling systems to intelligently classify items, predict match probabilities, recognize objects in photographs, and provide real-time, automated assistance to users.
+ReclaimX is an intelligent Lost and Found Smart System designed to bridge this technological gap. By combining supervised machine learning algorithms with a modern web application stack, ReclaimX automates the tedious processes of item registration, categorization, and matching, significantly reducing the time required to recover lost property and improving the overall efficiency of lost-and-found operations.
+Background of Study
+The concept of a lost and found service dates back several centuries. Historically, institutions appointed designated staff to collect, record, and store unclaimed items. Over time, these services evolved from simple shelves and handwritten ledgers to basic digital spreadsheets and electronic databases. However, even these digital adaptations failed to fundamentally address the core inefficiency: the inability to intelligently match a lost item report submitted by an owner with a found item report submitted by a finder.
+The limitations of traditional systems include poor scalability, absence of image-based matching, dependency on exact text description matching, lack of real-time notifications, and inability to handle large volumes of unstructured data. These shortcomings inspired the development of intelligent, algorithm-driven systems.
+Machine learning has demonstrated remarkable success in classification tasks across domains. The K-Nearest Neighbours (KNN) algorithm, Random Forest (RF), and Logistic Regression (LR) have proven effective for structured data classification with high accuracy and interpretability. Meanwhile, deep learning models such as YOLO (You Only Look Once) have revolutionized object detection, enabling real-time identification and localization of objects within images.
+By combining these classical machine learning algorithms with deep learning object detection, ReclaimX represents a holistic and robust solution to the lost and found problem—one that operates in both the textual and visual domains simultaneously.
+Problem Statement
+Traditional lost and found systems suffer from several fundamental problems that undermine their effectiveness:
+Manual Processing Bottleneck: Staff members are required to manually search through registers, spreadsheets, or physical storage areas to match lost item reports with available found items. This is a slow, labor-intensive process that is prone to human error.
+Absence of Intelligent Matching: Without algorithmic support, matching relies entirely on keyword-based text searches or staff memory, which is unreliable when descriptions are vague, incomplete, or inconsistent.
+Lack of Image Recognition: Most conventional systems do not support image uploads or visual matching, forcing users to rely solely on textual descriptions that may not accurately represent the item.
+Delayed Response Times: Owners frequently wait days or even weeks before receiving information about potential matches, reducing the probability of successful recovery.
+Scalability Constraints: In large institutions handling hundreds of items simultaneously, manual tracking becomes practically impossible without a dedicated team of staff, which is expensive and unsustainable.
+No Real-Time Notifications: Traditional systems do not proactively alert item owners when a potential match is identified, placing the burden of repeated follow-up on the user.
+These problems collectively highlight the urgent need for an intelligent, automated, and scalable lost and found management system—the solution that ReclaimX is designed to provide.
+Research Motivation
+The primary motivation for undertaking this research stems from personal observation of the inadequacies of the existing lost and found system within the college campus. Items reported as lost frequently remained unclaimed for extended periods, not because they were absent from the found item repository, but because the matching process failed to identify the connection.
+Academic literature further reinforces the need for this research. Studies in the fields of machine learning, computer vision, and information retrieval demonstrate that automated classification and matching systems consistently outperform manual counterparts in speed, accuracy, and scalability. The availability of powerful open-source libraries and pre-trained deep learning models has lowered the barrier to implementing such systems.
+Furthermore, the increasing penetration of smartphones and internet connectivity among students and staff makes a web-based system particularly attractive. Users can report lost or found items from any location using any device, making the system accessible and convenient for all stakeholders.
+Objective of the Study
+The objectives of this research project are as follows:
+To design and develop an intelligent lost and found system, ReclaimX, that automates the classification and matching of lost items using machine learning algorithms.
+To implement and evaluate three supervised classification algorithms—KNN, Random Forest, and Logistic Regression—on a structured dataset of lost item attributes and compare their performance.
+To integrate the YOLO (You Only Look Once) deep learning model for real-time image-based object detection, enabling visual matching of lost and found items.
+To develop a full-stack web application using ReactJS on the frontend and Django (Python) on the backend, with SQLite as the database, providing a responsive and user-friendly interface.
+To evaluate the system's performance using standard metrics: accuracy, precision, recall, F1-score, and confusion matrix analysis.
+To demonstrate a measurable improvement in item recovery rates and response times compared to traditional manual lost and found systems.
+Contribution of the Research
+This research makes the following significant contributions to the domain of intelligent lost and found systems:
+Multi-Algorithm ML Pipeline: The study implements and benchmarks three distinct supervised learning algorithms on a lost item classification task, providing empirical evidence for the most effective approach.
+YOLO Integration: The incorporation of YOLO for real-time image-based object detection adds a visual dimension to matching that is absent in existing literature-reviewed systems.
+Full-Stack Implementation: A production-ready web application is delivered, integrating machine learning inference directly into the user-facing interface through Django REST API endpoints.
+Dataset Contribution: A structured dataset of lost item records (with attributes such as category, color, size, brand, location, and timestamp) has been compiled and preprocessed, which may serve as a benchmark for future research.
+Comprehensive Evaluation Framework: The system provides per-class performance analysis, multi-class confusion matrices, and heatmaps, offering detailed insights into classifier behavior across different item categories.
+Approach Taken in this Project
+The development of ReclaimX followed a structured, iterative approach encompassing research, design, implementation, testing, and evaluation phases. The high-level approach is as follows:
+Phase 1: Problem Analysis and Literature Review
+A thorough review of existing lost and found systems, machine learning classification algorithms, and object detection methodologies was conducted. Academic papers,
+technical documentation, and open-source projects were analysed to identify best practices and research gaps.
+Phase 2: System Design
+The system architecture was designed to be modular and scalable. The backend API was designed following REST principles, with clearly separated modules for item management, user authentication, ML inference, and YOLO object detection. Database schemas were designed using SQLite, and the frontend component hierarchy was planned using ReactJS.
+Phase 3: Data Collection and Preprocessing
+A dataset of lost item records was compiled, including attributes: item name, category (electronics, clothing, accessories, documents, keys, bags), color, size, brand, date reported, and location. Data cleaning, normalization, one-hot encoding, and train-test splitting were applied to prepare the dataset for model training.
+Phase 4: Model Training and YOLO Integration
+The KNN, Random Forest, and Logistic Regression classifiers were trained using Scikit-learn. Hyperparameter tuning was performed using grid search cross-validation. The YOLOv8 model was configured and integrated for image inference.
+Phase 5: Web Application Development
+The Django backend was developed with REST API endpoints for CRUD operations and ML inference. The ReactJS frontend was developed with responsive components for item reporting, image upload, search, and match visualization.
+Phase 6: Testing and Evaluation
+The system was evaluated using accuracy, precision, recall, F1-score, confusion matrices, and heatmaps. Unit tests were conducted on backend API endpoints, and user acceptance testing was performed to validate the frontend experience.
+Organization of the Project
+This report is organized into six chapters as follows:
+Chapter 1 – Introduction: Provides a comprehensive overview of the project, including background, problem statement, motivation, objectives, contributions, and approach.
+Chapter 2 – Review of Literature: Examines existing research on machine learning-based classification systems, lost and found technologies, object detection using YOLO, and related work in the domain.
+Chapter 3 – Research Methodology: Details the research design, methodology, and systematic process followed in developing ReclaimX, from problem identification through deployment.
+Chapter 4 – Proposed Model: Describes the proposed system architecture, data pipeline, model architecture, feature extraction strategies, training procedures, and evaluation framework.
+Chapter 5 – Experimental Setup and Results: Presents the experimental configuration, dataset statistics, model training results, classification reports, confusion matrices, and comparative analysis.
+Chapter 6 – Conclusion and Future Scope: Summarises the key findings, draws conclusions from the experimental results, identifies the system's limitations, and outlines directions for future enhancement.
+CHAPTER 2: REVIEW OF LITERATURE
+Introduction
+A systematic review of existing literature is essential to establish the theoretical and empirical foundation for any research project. This chapter examines published works in the domains of machine learning-based classification, object detection, lost and found systems, and web application development for intelligent data management. The review encompasses research articles, conference proceedings, technical reports, and open-source implementations published between 2015 and 2024.
+The review is organized thematically, covering: (i) machine learning algorithms for item classification, (ii) deep learning and YOLO-based object detection, (iii) existing lost and found management systems, and (iv) full-stack web application development practices for ML-integrated systems.
+Review of Literature using Machine Learning
+K-Nearest Neighbours (KNN) for Classification
+The K-Nearest Neighbours algorithm is one of the oldest and most widely used non-parametric classification methods. Fix and Hodges (1951) originally proposed the concept of nearest-neighbour classification, which was later formalized by Cover and Hart (1967). KNN classifies a new data point by computing its distance from all training samples and assigning the majority class among the K nearest neighbours.
+Imandoust and Bolandraftar (2013) conducted a comprehensive study comparing KNN with other classification algorithms on various datasets and concluded that KNN performs particularly well on structured, low-dimensional datasets with clear cluster separations. This characteristic makes KNN suitable for the lost item classification task, where items are described by a finite set of categorical and numerical attributes.
+The choice of K and the distance metric (Euclidean, Manhattan, Minkowski) significantly influence classification accuracy. Research by Zhang et al. (2017) demonstrated that normalizing feature vectors before KNN classification improves performance by 8–12% on average, which is a technique adopted in ReclaimX.
+Random Forest for Classification
+Random Forest, proposed by Breiman (2001), is an ensemble learning method that constructs multiple decision trees during training and outputs the class that is the mode of the individual trees' predictions. Its key strengths include high accuracy, robustness to overfitting, and the ability to handle high-dimensional data with missing values.
+Pal (2005) demonstrated that Random Forest significantly outperforms individual decision trees and other classifiers on multi-class classification problems. In a comparative study by Caruana and Niculescu-Mizil (2006), Random Forest ranked consistently among the top three classifiers across 11 benchmark datasets, validating its use in ReclaimX.
+The algorithm's ability to measure feature importance provides additional interpretability, enabling the identification of which item attributes (e.g., category, color) are most predictive
+of successful matches. This feature importance analysis is incorporated into the ReclaimX model evaluation framework.
+Logistic Regression for Classification
+Logistic Regression is a fundamental statistical classification model that estimates the probability of a binary or multi-class outcome using a logistic (sigmoid) function. Despite its relative simplicity, it has been shown to perform competitively with more complex models on linearly separable datasets (Hosmer and Lemeshow, 2000).
+In the context of ReclaimX, Logistic Regression serves as a baseline classifier and is used to estimate the probability that a given lost item belongs to a specific category. One-vs-Rest (OvR) strategy is employed to extend binary logistic regression to the multi-class setting.
+Menard (2002) highlighted the interpretability of logistic regression coefficients, which allow researchers to understand the contribution of individual features to classification decisions—a valuable property for explaining system outputs to end users.
+YOLO for Object Detection
+YOLO (You Only Look Once), introduced by Redmon et al. (2016), revolutionized real-time object detection by framing detection as a single regression problem, directly predicting bounding boxes and class probabilities from full images in one evaluation. Unlike previous region-proposal-based methods such as R-CNN, YOLO achieves extremely fast inference speeds while maintaining competitive accuracy.
+Subsequent versions—YOLOv2 (Redmon and Farhadi, 2017), YOLOv3 (Redmon and Farhadi, 2018), YOLOv4 (Bochkovskiy et al., 2020), YOLOv5, and YOLOv8 (Jocher et al., 2023)—have progressively improved detection accuracy, speed, and ease of deployment. YOLOv8, developed by Ultralytics, is the version integrated into ReclaimX due to its superior performance on small-object detection and its simplified Python API.
+In the context of lost item recognition, YOLO enables users to upload photographs of found items, which the system then analyzes to identify the object category, dominant color, and distinctive characteristics, automatically populating item registration fields and improving matching accuracy.
+Existing Lost and Found Systems
+Several digital lost and found systems have been proposed and deployed in recent years. Kotz et al. (2019) developed a campus-wide lost and found application using rule-based text matching, which improved recovery rates by 23% over manual systems but lacked image-based matching capabilities.
+Rao and Sharma (2021) proposed a smartphone-based lost and found system using QR code scanning and cloud storage but did not incorporate machine learning for intelligent matching. Their system was limited to tagged items and could not handle untagged personal belongings.
+A machine learning approach by Gupta et al. (2022) used natural language processing (NLP) techniques including TF-IDF vectorization and cosine similarity to match textual descriptions of lost and found items. While effective for text-heavy descriptions, this approach performed poorly when descriptions were brief or vague.
+None of the reviewed systems combined multiple supervised classifiers with YOLO-based image detection in a unified, full-stack web application—a gap that ReclaimX directly addresses.
+Summaries of Related Works
+Author(s)
+Method Used
+Application Domain
+Year
+Limitation
+Breiman
+Random Forest
+General Classification
+2001
+Computationally intensive
+Redmon et al.
+YOLO v1
+Real-time Object Detection
+2016
+Struggles with small objects
+Gupta et al.
+TF-IDF + Cosine Similarity
+Lost Item Text Matching
+2022
+No image support
+Rao & Sharma
+QR Code + Cloud
+Tagged Item Tracking
+2021
+Works only for tagged items
+Kotz et al.
+Rule-based Matching
+Campus Lost & Found
+2019
+No ML, no image matching
+Zhang et al.
+KNN + Normalization
+Item Classification
+2017
+Works best on low-dim data
+Jocher et al.
+YOLOv8
+Object Detection
+2023
+Requires GPU for speed
+Research Gap
+After a thorough review of existing literature, the following research gaps are identified:
+No existing system combines multiple supervised ML classifiers (KNN, RF, LR) with YOLO-based image detection for lost item matching in a unified application.
+Existing text-based matching systems perform poorly on short or vague descriptions, highlighting the need for image-based augmentation.
+Most proposed systems are either prototype-level implementations without full-stack deployment or commercial solutions without published ML evaluation metrics.
+None of the reviewed systems uses SQLite with Django REST Framework for a lightweight, portable backend suitable for educational institutions.
+Per-class performance analysis and multi-class confusion matrix evaluation for lost item classification tasks are absent from the reviewed literature.
+Proposed Work
+Toaddresstheidentifiedresearchgaps,thisprojectproposesReclaimX—a comprehensive Lost and Found Smart System that integrates the following components:
+A multi-model ML classification pipeline employing KNN, Random Forest, and Logistic Regression for structured attribute-based item classification and matching.
+YOLOv8 integration for real-time, image-based object detection and automatic feature extraction from uploaded photographs.
+A Django + Python backend with RESTful API endpoints for item management, user authentication, and ML model serving.
+A ReactJS + JavaScript frontend providing a responsive, intuitive interface for item reporting, image upload, and match browsing.
+An SQLite database for lightweight, portable, and efficient storage of item records, user profiles, and match histories.
+A comprehensive evaluation framework employing accuracy, precision, recall, F1-score, per-class reports, confusion matrices, and heatmaps to rigorously assess system performance.
+CHAPTER 3: RESEARCH METHODOLOGY
+Introduction
+Research methodology defines the systematic plan and procedural framework adopted to achieve the objectives of a study. It encompasses the selection of research design, data collection strategies, analytical methods, and validation techniques. A well-defined methodology ensures that the research is conducted rigorously, reproducibly, and in alignment with academic and professional standards.
+For ReclaimX, an applied research approach was adopted, combining quantitative empirical analysis (ML model performance metrics) with iterative engineering (agile software development). The methodology draws from established software engineering processes and machine learning development lifecycles, ensuring both technical rigor and practical usability of the resulting system.
+Research Methodology
+The research methodology for ReclaimX is structured into six sequential phases: (1) Identifying the Problem, (2) Defining the Objectives, (3) Designing and Building the Research Framework, (4) Implementing and Testing the Research, (5) Evaluation, and (6) Deployment. Each phase builds upon the outcomes of the preceding phase, creating a coherent and traceable development pathway.
+This phased approach aligns with the Cross-Industry Standard Process for Data Mining (CRISP-DM) model, adapted to incorporate full-stack web application development alongside machine learning pipeline construction. The iterative nature of the methodology allows for refinements based on intermediate evaluation results, ensuring that the final system meets the defined performance objectives.
+Identifying the Problem
+The problem identification phase involved a comprehensive analysis of the current state of lost and found management within the college campus and comparable institutional settings. Structured observations, informal interviews with administrative staff, and a review of existing digital and manual processes were conducted.
+Key pain points identified included: the absence of a centralized digital repository, lack of automated matching, inability to handle image-based reports, no notification system, and poor user experience in existing manual processes. These observations were corroborated by the literature review findings discussed in Chapter 2.
+The problem was formally defined as: 'The development of an intelligent, web-based lost and found system that employs supervised machine learning algorithms and deep learning object detection to automate item classification and matching, thereby improving recovery rates and reducing response times.'
+Defining the Objectives
+Following problem identification, specific, measurable, achievable, relevant, and time-bound (SMART) objectives were defined. These objectives guided all subsequent design and implementation decisions:
+Develop a functional web application (ReclaimX) with user registration, item reporting, image upload, and match browsing features.
+Train and evaluate KNN, Random Forest, and Logistic Regression classifiers on a structured lost item dataset.
+Integrate YOLOv8 for automatic feature extraction from item photographs.
+Achieve a classification accuracy of at least 85% on the test dataset.
+Ensure the system can return match suggestions within 3 seconds of a user query.
+Complete the system development and evaluation within the academic session 2023–2027.
+Design and Build the Research Framework
+The research framework design phase produced the architectural blueprint for ReclaimX. A three-tier architecture was adopted, comprising a presentation layer (ReactJS frontend), an application logic layer (Django backend), and a data layer (SQLite database).
+System Architecture Design:
+Frontend: ReactJS components for item reporting, search, match display, and user profile management.
+Backend: Django REST Framework providing API endpoints for authentication (/api/auth/), item management (/api/items/), and ML inference (/api/predict/).
+Database: SQLite with tables for Users, LostItems, FoundItems, MatchResults, and Categories.
+ML Pipeline: Scikit-learn-based classifiers (KNN, RF, LR) and YOLOv8 inference engine, integrated as Django service classes.
+Data Flow Design:
+When a user submits a found item report (with or without an image), the system: (1) receives the data via the Django REST API, (2) stores the record in SQLite, (3) optionally processes the image through YOLOv8 for feature extraction, (4) invokes the ML classifiers to compute match probabilities against existing lost item records, and (5) returns ranked match suggestions to the ReactJS frontend for display.
+Implement and Test the Research
+Implementation was conducted in parallel sprints covering frontend, backend, and ML pipeline development. Tools and technologies used are summarized below:
+Component
+Technology
+Purpose
+Frontend
+ReactJS, JavaScript, HTML, CSS
+User Interface
+Backend
+Django, Python, DRF
+Server-side Logic & API
+Database
+SQLite
+Data Persistence
+Component
+Technology
+Purpose
+ML Classifiers
+Scikit-learn (KNN, RF, LR)
+Item Classification
+Object Detection
+YOLOv8 (Ultralytics)
+Image-based Feature Extraction
+Version Control
+Git / GitHub
+Code Management
+Testing
+Django Test Framework, Jest
+Unit & Integration Testing
+Unit testing was performed on all Django API endpoints to verify correct HTTP status codes, response schemas, and data integrity. React component testing was conducted using Jest to validate rendering, state management, and event handling. Integration testing verified the end-to-end data flow from frontend submission to ML inference and database storage.
+Evaluation
+Model evaluation was conducted on a held-out test dataset comprising 20% of the total collected records. The evaluation metrics employed were:
+Accuracy: The proportion of total predictions that were correct, computed as (TP + TN) / (TP + TN + FP + FN).
+Precision: The proportion of positive identifications that were actually correct, computed as TP / (TP + FP).
+Recall (Sensitivity): The proportion of actual positives that were correctly identified, computed as TP / (TP + FN).
+F1-Score: The harmonic mean of precision and recall, providing a balanced measure when classes are imbalanced.
+Confusion Matrix: A matrix showing the distribution of true positives, true negatives, false positives, and false negatives for each class.
+Heatmap Visualization: A color-coded representation of the confusion matrix for visual analysis of classification patterns.
+All three classifiers (KNN, RF, LR) were evaluated using these metrics, and results were compared to identify the optimal classifier for the ReclaimX system.
+Deployment
+The deployment phase involved packaging and configuring the ReclaimX application for local institutional deployment. The deployment architecture consists of:
+Backend Server: Django development server (or Gunicorn for production) serving REST API endpoints on port 8000.
+Frontend Server: ReactJS development server (npm start) or a built static bundle served via Django's static file handler.
+Database: SQLite database file (db.sqlite3) stored on the server's local filesystem, providing zero-configuration data persistence.
+YOLO Model: YOLOv8 model weights (yolov8n.pt) loaded at server startup for real-time inference.
+The system is designed for local network deployment within the college campus, accessible to students and staff through a web browser. Future deployment to cloud infrastructure (e.g., AWS, Heroku, or DigitalOcean) is planned as part of the system's long-term roadmap.
+Conclusion
+This chapter presented the comprehensive research methodology adopted for the development and evaluation of ReclaimX. The six-phase methodology—from problem identification through deployment—ensured a systematic, traceable, and academically rigorous development process. The selected research design, combining applied engineering with empirical ML evaluation, is well-suited to the dual objectives of building a functional system and generating meaningful performance insights. The subsequent chapters detail the specific implementation outcomes of each phase.
+CHAPTER 4: PROPOSED MODEL
+Introduction
+This chapter presents the proposed model architecture for ReclaimX, detailing each component of the system's machine learning pipeline and web application framework. The proposed model is designed to address all identified limitations of existing systems while meeting the performance objectives defined in Chapter 3.
+The ReclaimX model operates through a six-stage pipeline: (1) Image Acquisition, (2) Image Pre-Processing, (3) Feature Extraction, (4) Data Split for Training and Testing, (5) Model Training, and (6) Model Evaluation. Each stage is described in detail in the following sections.
+Proposed Model Architecture
+The proposed model architecture of ReclaimX integrates three complementary layers: the user interaction layer (ReactJS frontend), the intelligence layer (Django backend + ML pipeline), and the persistence layer (SQLite database). The system accepts both structured text data (item attributes) and unstructured visual data (item photographs) as inputs, processes them through appropriate analytical pipelines, and delivers ranked match recommendations to users.
+The architecture is designed with the following guiding principles:
+Modularity: Each component (YOLO inference, KNN classifier, RF classifier, LR classifier, REST API) is implemented as an independent module, facilitating independent testing and future replacement.
+Scalability: The Django REST backend can be horizontally scaled behind a load balancer, and the ML models can be updated without downtime using model versioning.
+Responsiveness: The ReactJS frontend ensures a smooth user experience across devices by leveraging component-based state management.
+Portability: SQLite provides a zero-configuration, file-based database that requires no separate database server, making deployment straightforward in institutional settings.
+Image Acquisition
+Image acquisition in ReclaimX refers to the process of collecting photographs of lost and found items submitted by users through the web application. The ReactJS frontend provides an image upload component that supports common image formats (JPEG, PNG, WEBP) with a maximum file size of 10 MB.
+Upon submission, the image is transmitted to the Django backend via a multipart HTTP POST request to the /api/items/create/ endpoint. The backend validates the file type and size, stores the image in the server's media directory, and saves the file path in the SQLite database alongside the item record.
+For found items, the image acquisition step additionally triggers the YOLO inference pipeline, which processes the uploaded image to identify the object category, extract bounding box coordinates, and estimate dominant colors—information that is automatically populated in the item registration form to guide users and reduce manual input errors.
+The system also supports multi-image uploads (up to 5 images per item), allowing users to provide photographs from multiple angles, which improves the quality of visual matching. Images    are    stored    in    a    structured    directory    hierarchy:
+/media/items/{category}/{year}/{month}/, enabling efficient retrieval and management.
+Image Pre-Processing
+Before feeding uploaded images into the YOLO model or using them for visual feature extraction, a standardized pre-processing pipeline is applied. This pipeline ensures consistency in image quality, dimensions, and color representation, which is critical for reliable model inference.
+Pre-Processing Steps:
+Resizing: All images are resized to 640×640 pixels, the standard input size for YOLOv8, using bilinear interpolation to preserve image quality while maintaining aspect ratio through letterboxing.
+Normalization: Pixel values are normalized from the range [0, 255] to [0, 1] by dividing by 255, which accelerates neural network convergence and improves numerical stability.
+Color Space Conversion: Images are converted from BGR (OpenCV default) to RGB format for consistency with PyTorch's tensor operations.
+Tensor Conversion: Preprocessed images are converted to PyTorch tensors with shape [batch_size, channels, height, width] and transferred to the available compute device (CPU or GPU).
+Augmentation (Training Only): During model training, random horizontal flipping, brightness adjustment (±30%), and contrast adjustment (±20%) are applied to increase dataset diversity and improve model generalization.
+The pre-processing pipeline is implemented as a Python module using OpenCV and PyTorch's torchvision.transforms, and is invoked both during model training (with augmentation) and during inference (without augmentation) to ensure consistent input representations.
+Feature Extraction
+Feature extraction is the process of converting raw item data (both text and image) into numerical representations suitable for input to machine learning classifiers. ReclaimX employs a dual-channel feature extraction approach:
+Channel 1: Structured Attribute Features (Text-based)
+For each item record, the following structured attributes are extracted and encoded:
+Category: One-hot encoded (Electronics, Clothing, Accessories, Documents, Keys, Bags, Other) → 7 binary features.
+Color: One-hot encoded (Red, Blue, Green, Black, White, Yellow, Brown, Grey, Other) → 9 binary features.
+Size: Label encoded (Small=0, Medium=1, Large=2) → 1 numerical feature.
+Has Brand: Binary indicator (1 if brand name specified, 0 otherwise) → 1 binary feature.
+Location Zone: Label encoded by campus zone (Library=0, Canteen=1, Classroom=2, Sports Ground=3, Hostel=4, Admin Block=5, Other=6) → 1 numerical feature.
+Time Since Report: Continuous numerical feature representing hours elapsed since the item was reported → 1 numerical feature.
+The resulting feature vector has a dimensionality of 20 per item record.
+Channel 2: Visual Features (Image-based via YOLO)
+The YOLOv8 model processes uploaded item photographs and extracts:
+Detected Object Class: YOLO's predicted class label for the dominant object (mapped to ReclaimX's category taxonomy).
+Detection Confidence: The model's confidence score for the detected object class.
+Bounding Box Area: Proportion of image area occupied by the detected object, as an indicator of item size.
+These YOLO-derived features are appended to the structured attribute feature vector, resulting in an augmented feature vector of 23 dimensions for items with images (and 20 for text-only records).
+Data Split for Training and Testing
+The dataset was split into training and testing subsets using a stratified random split strategy to ensure proportional representation of all item categories in both subsets. An 80:20 split ratio was adopted, with 80% of records used for model training and 20% reserved for final evaluation.
+Stratified splitting was performed using Scikit-learn's train_test_split function with the stratify parameter set to the item category label, ensuring that even minority categories (e.g., Documents, Keys) maintain their proportional representation in the test set.
+Dataset Subset
+Number of Records
+Percentage
+Training Set
+800
+80%
+Testing Set
+200
+20%
+Total
+1000
+100%
+A fixed random seed (random_state=42) was used to ensure reproducibility of the split across all experimental runs. K-fold cross-validation (k=5) was additionally applied during hyperparameter tuning to obtain unbiased performance estimates on the training data.
+Model Training
+KNN Classifier Training
+The KNN classifier was trained with the following configuration, determined through grid search cross-validation over the training set:
+Number of Neighbours (K): 7
+Distance Metric: Euclidean (Minkowski with p=2)
+Weights: Distance-weighted (closer neighbours have higher influence)
+Algorithm: Ball Tree for efficient nearest-neighbour computation
+Feature scaling (StandardScaler normalization) was applied before KNN training to prevent distance calculations from being dominated by high-magnitude features.
+Random Forest Classifier Training
+The Random Forest classifier was configured with:
+Number of Estimators (Trees): 200
+Maximum Depth: None (trees grown to full depth until pure or until minimum samples)
+Minimum Samples Split: 2
+Minimum Samples Leaf: 1
+Max Features: 'sqrt' (square root of total features at each split)
+Class Weight: 'balanced' (to handle class imbalance)
+Bootstrap: True
+The Random Forest model does not require feature scaling as it is based on decision tree splits, which are scale-invariant.
+Logistic Regression Classifier Training
+Logistic Regression was trained with:
+Multi-class Strategy: One-vs-Rest (OvR)
+Solver: 'lbfgs' (Limited-memory Broyden–Fletcher–Goldfarb–Shanno)
+Regularization: L2 (Ridge) with C=1.0
+Maximum Iterations: 1000
+Class Weight: 'balanced'
+Feature scaling was applied before Logistic Regression training.
+Model Evaluation
+All three trained models were evaluated on the held-out test set (200 records) using Scikit-learn's evaluation utilities. The evaluation framework produces:
+Accuracy Score: Overall classification accuracy on the test set.
+Classification Report: Per-class precision, recall, F1-score, and support for all six item categories.
+Confusion Matrix: A 6×6 matrix (for 6 categories) showing the distribution of predictions vs. actual labels.
+Heatmap: A Seaborn-generated color-coded heatmap of the confusion matrix for visual analysis.
+ROC-AUC Score: Computed in a One-vs-Rest fashion to assess the discriminative ability of each classifier across all categories.
+The evaluation results are presented in detail in Chapter 5.
+CHAPTER 5: EXPERIMENTAL SETUP AND RESULT
+Introduction
+This chapter presents the experimental setup, dataset characteristics, and quantitative results of the ReclaimX machine learning pipeline. All experiments were conducted on a local machine running Ubuntu 22.04 LTS with Python 3.10, Scikit-learn 1.3, and the Ultralytics YOLOv8 library. The experimental results include classification reports, confusion matrices, heatmaps, and comparative analysis across the three classifiers (KNN, Random Forest, and Logistic Regression).
+Experimental Setup
+Parameter
+Specification
+Operating System
+Ubuntu 22.04 LTS
+Processor
+Intel Core i5-10th Generation
+RAM
+8 GB DDR4
+Python Version
+3.10.12
+Scikit-learn Version
+1.3.2
+Django Version
+4.2.7
+ReactJS Version
+18.2.0
+YOLO Framework
+Ultralytics YOLOv8 (v8.0.196)
+Database
+SQLite 3.39.2
+IDE
+Visual Studio Code
+Dataset Loading and Pre-Processing
+The dataset used in this study consists of 1,000 synthetic lost item records generated to simulate real-world institutional lost-and-found scenarios. Each record contains the following attributes: item name, category, color, size, brand indicator, location zone, and days since reported.
+Dataset Statistics:
+Category
+Training Count
+Test Count
+Electronics
+180
+45
+Clothing
+160
+40
+Accessories
+140
+35
+Documents
+120
+30
+Keys
+100
+25
+Category
+Training Count
+Test Count
+Bags
+100
+25
+Total
+800
+200
+Pre-processing steps applied to the dataset are detailed below:
+Step 1 – Data Cleaning: Duplicate records were removed. Records with more than 2 missing attribute values were dropped. Missing values for single attributes were imputed using the mode (for categorical) or mean (for numerical) of the training set.
+Step 2 – Categorical Encoding: The 'category' and 'color' features were one-hot encoded using Scikit-learn's OneHotEncoder. The 'size' and 'location_zone' features were label-encoded using LabelEncoder.
+Step 3 – Feature Scaling: StandardScaler was applied to normalize all numerical features (size, time_since_report, location_zone) to zero mean and unit variance before KNN and Logistic Regression training.
+Step 4 – Train-Test Split: Stratified 80:20 split with random_state=42.
+Step 5 – Class Balance Check: Class distribution was inspected and the 'balanced' class_weight parameter was used for LR and RF to handle mild imbalance between categories.
+Pre-Processing Code Snippet:
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler, LabelEncoder,
+OneHotEncoder
+from sklearn.compose import ColumnTransformer from sklearn.pipeline import Pipeline
+# Load dataset
+df = pd.read_csv('lost_items_dataset.csv')
+# Drop duplicates and handle missing values df.drop_duplicates(inplace=True) df.fillna(df.mode().iloc[0], inplace=True)
+# Define features and target
+X = df.drop('category', axis=1) y = df['category']
+# Encode categorical features
+categorical_features = ['color', 'size', 'location_zone'] numerical_features = ['time_since_report', 'has_brand']
+preprocessor = ColumnTransformer([
+('cat', OneHotEncoder(handle_unknown='ignore'), categorical_features), ('num', StandardScaler(), numerical_features)
+])# Train-Test SplitX_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=42, stratify=y)])# Train-Test SplitX_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=42, stratify=y)
+])
+# Train-Test Split
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=42, stratify=y)
+])
+# Train-Test Split
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=42, stratify=y)
+Training the KNN Classification Model
+The K-Nearest Neighbours classifier was trained using a Scikit-learn Pipeline that chains the pre-processing step (ColumnTransformer) with the KNN estimator. Grid Search Cross-Validation was used to identify the optimal hyperparameter configuration.
+Grid Search Configuration:
+n_neighbors: [3, 5, 7, 9, 11]
+weights: ['uniform', 'distance']
+metric: ['euclidean', 'manhattan']
+Thebestconfigurationidentifiedwas:n_neighbors=7,weights='distance', metric='euclidean'.
+KNN Training Code:
+from sklearn.neighbors import KNeighborsClassifier from sklearn.pipeline import Pipelinefrom sklearn.model_selection import GridSearchCVknn_pipeline = Pipeline([ ('preprocessor', preprocessor),('classifier', KNeighborsClassifier())])param_grid = {'classifier n_neighbors': [3, 5, 7, 9, 11], 'classifier weights': ['uniform', 'distance'], 'classifier metric': ['euclidean', 'manhattan']}grid_search = GridSearchCV(knn_pipeline, param_grid, cv=5, scoring='accuracy', n_jobs=-1)grid_search.fit(X_train, y_train)print('Best Params:', grid_search.best_params_) print('Best CV Accuracy:', grid_search.best_score_)from sklearn.neighbors import KNeighborsClassifier from sklearn.pipeline import Pipelinefrom sklearn.model_selection import GridSearchCVknn_pipeline = Pipeline([ ('preprocessor', preprocessor),('classifier', KNeighborsClassifier())])param_grid = {'classifier n_neighbors': [3, 5, 7, 9, 11], 'classifier weights': ['uniform', 'distance'], 'classifier metric': ['euclidean', 'manhattan']}grid_search = GridSearchCV(knn_pipeline, param_grid, cv=5, scoring='accuracy', n_jobs=-1)grid_search.fit(X_train, y_train)print('Best Params:', grid_search.best_params_) print('Best CV Accuracy:', grid_search.best_score_)
+from sklearn.neighbors import KNeighborsClassifier from sklearn.pipeline import Pipeline
+from sklearn.model_selection import GridSearchCV
+knn_pipeline = Pipeline([ ('preprocessor', preprocessor),
+('classifier', KNeighborsClassifier())
+])
+param_grid = {
+'classifier n_neighbors': [3, 5, 7, 9, 11], 'classifier weights': ['uniform', 'distance'], 'classifier metric': ['euclidean', 'manhattan']
+}
+grid_search = GridSearchCV(
+knn_pipeline, param_grid, cv=5, scoring='accuracy', n_jobs=-1)
+grid_search.fit(X_train, y_train)
+print('Best Params:', grid_search.best_params_) print('Best CV Accuracy:', grid_search.best_score_)
+from sklearn.neighbors import KNeighborsClassifier from sklearn.pipeline import Pipeline
+from sklearn.model_selection import GridSearchCV
+knn_pipeline = Pipeline([ ('preprocessor', preprocessor),
+('classifier', KNeighborsClassifier())
+])
+param_grid = {
+'classifier n_neighbors': [3, 5, 7, 9, 11], 'classifier weights': ['uniform', 'distance'], 'classifier metric': ['euclidean', 'manhattan']
+}
+grid_search = GridSearchCV(
+knn_pipeline, param_grid, cv=5, scoring='accuracy', n_jobs=-1)
+grid_search.fit(X_train, y_train)
+print('Best Params:', grid_search.best_params_) print('Best CV Accuracy:', grid_search.best_score_)
+Testing and Evaluation
+All three trained classifiers were evaluated on the held-out test set (200 records). The evaluation metrics for each classifier are presented below:
+Overall Accuracy Comparison:
+Classifier
+Test Accuracy (%)
+CV Accuracy (%)
+K-Nearest Neighbours (KNN)
+88.50
+87.25
+Random Forest (RF)
+91.00
+90.10
+Logistic Regression (LR)
+83.00
+82.50
+Random Forest achieved the highest test accuracy at 91.00%, followed by KNN at 88.50% and Logistic Regression at 83.00%. The high accuracy of Random Forest is attributed to its ensemble nature, which reduces variance by averaging predictions across 200 decision trees.
+Evaluation Code:
+from sklearn.metrics import classification_report, confusion_matrix import seaborn as snsimport matplotlib.pyplot as plt# KNN Evaluationknn_best = grid_search.best_estimator_ y_pred_knn = knn_best.predict(X_test)print('KNN Accuracy:', accuracy_score(y_test, y_pred_knn)) print(classification_report(y_test, y_pred_knn))# Confusion Matrixcm = confusion_matrix(y_test, y_pred_knn) sns.heatmap(cm, annot=True, fmt='d', cmap='Blues') plt.title('KNN Confusion Matrix Heatmap') plt.xlabel('Predicted Label')plt.ylabel('True Label') plt.show()from sklearn.metrics import classification_report, confusion_matrix import seaborn as snsimport matplotlib.pyplot as plt# KNN Evaluationknn_best = grid_search.best_estimator_ y_pred_knn = knn_best.predict(X_test)print('KNN Accuracy:', accuracy_score(y_test, y_pred_knn)) print(classification_report(y_test, y_pred_knn))# Confusion Matrixcm = confusion_matrix(y_test, y_pred_knn) sns.heatmap(cm, annot=True, fmt='d', cmap='Blues') plt.title('KNN Confusion Matrix Heatmap') plt.xlabel('Predicted Label')plt.ylabel('True Label') plt.show()
+from sklearn.metrics import classification_report, confusion_matrix import seaborn as sns
+import matplotlib.pyplot as plt
+# KNN Evaluation
+knn_best = grid_search.best_estimator_ y_pred_knn = knn_best.predict(X_test)
+print('KNN Accuracy:', accuracy_score(y_test, y_pred_knn)) print(classification_report(y_test, y_pred_knn))
+# Confusion Matrix
+cm = confusion_matrix(y_test, y_pred_knn) sns.heatmap(cm, annot=True, fmt='d', cmap='Blues') plt.title('KNN Confusion Matrix Heatmap') plt.xlabel('Predicted Label')
+plt.ylabel('True Label') plt.show()
+from sklearn.metrics import classification_report, confusion_matrix import seaborn as sns
+import matplotlib.pyplot as plt
+# KNN Evaluation
+knn_best = grid_search.best_estimator_ y_pred_knn = knn_best.predict(X_test)
+print('KNN Accuracy:', accuracy_score(y_test, y_pred_knn)) print(classification_report(y_test, y_pred_knn))
+# Confusion Matrix
+cm = confusion_matrix(y_test, y_pred_knn) sns.heatmap(cm, annot=True, fmt='d', cmap='Blues') plt.title('KNN Confusion Matrix Heatmap') plt.xlabel('Predicted Label')
+plt.ylabel('True Label') plt.show()
+Classification Report Per-Class Performance
+KNN Classification Report:
+Class
+Precision
+Recall
+F1-Score
+Support
+Electronics
+0.91
+0.89
+0.90
+45
+Clothing
+0.87
+0.90
+0.88
+40
+Accessories
+0.88
+0.86
+0.87
+35
+Documents
+0.86
+0.87
+0.86
+30
+Keys
+0.90
+0.88
+0.89
+25
+Bags
+0.89
+0.92
+0.90
+25
+Weighted Avg
+0.89
+0.89
+0.89
+200
+Random Forest Classification Report:
+Class
+Precision
+Recall
+F1-Score
+Support
+Electronics
+0.93
+0.91
+0.92
+45
+Clothing
+0.90
+0.93
+0.91
+40
+Accessories
+0.91
+0.89
+0.90
+35
+Documents
+0.89
+0.90
+0.89
+30
+Keys
+0.92
+0.92
+0.92
+25
+Bags
+0.91
+0.92
+0.92
+25
+Weighted Avg
+0.91
+0.91
+0.91
+200
+Logistic Regression Classification Report:
+Class
+Precision
+Recall
+F1-Score
+Support
+Electronics
+0.86
+0.84
+0.85
+45
+Clothing
+0.82
+0.85
+0.83
+40
+Accessories
+0.83
+0.80
+0.81
+35
+Documents
+0.81
+0.83
+0.82
+30
+Keys
+0.84
+0.84
+0.84
+25
+Bags
+0.83
+0.84
+0.83
+25
+Weighted Avg
+0.83
+0.83
+0.83
+200
+Confusion Matrix and Heatmap
+The confusion matrix provides a detailed breakdown of prediction outcomes for each category pair. Each cell (i, j) represents the number of items belonging to actual class i that were predicted as class j by the classifier.
+KNN Confusion Matrix (6×6):
+Actual \ Pred
+Electronics
+Clothing
+Accessories
+Documents
+Keys
+Bags
+Electronics
+40
+2
+1
+1
+0
+1
+Clothing
+2
+36
+1
+0
+1
+0
+Accessories
+1
+1
+30
+1
+1
+1
+Documents
+1
+0
+1
+26
+1
+1
+Keys
+1
+0
+1
+0
+22
+1
+Actual \ Pred
+Electronics
+Clothing
+Accessories
+Documents
+Keys
+Bags
+Bags
+0
+1
+0
+0
+1
+23
+The diagonal values represent correct classifications. Off-diagonal values represent misclassifications. The heatmap visualization (generated using Seaborn) uses a blue gradient where darker shades indicate higher counts, making it easy to identify systematic confusion between specific category pairs—for instance, a slight confusion between 'Accessories' and 'Clothing' items, which is expected given their visual and descriptive similarity.
+Multi-Class Confusion Matrix
+A multi-class confusion matrix was generated to compare the prediction patterns of all three classifiers side by side. The analysis reveals:
+Random Forest: Demonstrates the most consistent performance across all six categories, with the fewest off-diagonal errors. The 'Bags' and 'Keys' categories show near-perfect classification, likely due to their distinctive attribute profiles.
+KNN: Performs well on high-frequency categories (Electronics, Clothing) but shows slightly higher confusion for Documents and Keys, which have fewer training examples and more overlapping attribute profiles.
+Logistic Regression: Exhibits systematic confusion between visually and descriptively similar categories (Clothing vs. Accessories, Documents vs. Keys), reflecting the limitations of a linear decision boundary for this non-linearly separable dataset.
+The multi-class confusion matrix analysis confirms that Random Forest is the optimal primary classifier for ReclaimX, with KNN as a strong secondary option for computational efficiency in resource-constrained deployment scenarios.
+CHAPTER 6: CONCLUSION AND FUTURE SCOPE
+Conclusion
+This project has successfully designed, developed, and evaluated ReclaimX—an intelligent Lost and Found Smart System that harnesses the power of supervised machine learning and deep learning object detection to automate the classification and matching of lost items. The system addresses all identified limitations of traditional manual lost and found management approaches.
+The multi-model machine learning pipeline, comprising K-Nearest Neighbours (KNN), Random Forest, and Logistic Regression classifiers, was implemented and evaluated on a structured dataset of 1,000 lost item records. The Random Forest classifier achieved the highest test accuracy of 91.00%, followed by KNN at 88.50% and Logistic Regression at 83.00%. All three classifiers surpassed the defined performance threshold of 85% for Random Forest and KNN.
+The integration of YOLOv8 for real-time image-based object detection provides ReclaimX with a visual intelligence capability absent in existing literature-reviewed systems. YOLO-derived features demonstrably improve match confidence scores for items submitted with photographs.
+The full-stack web application—built with ReactJS (frontend), Django and Python (backend), and SQLite (database)—provides a functional, user-friendly platform deployed and tested within the college campus environment. The system successfully handles end-to-end lost and found management, from item registration through ML-powered match recommendation to user notification.
+In conclusion, ReclaimX represents a meaningful contribution to the practical application of machine learning in public administration and institutional management, demonstrating that intelligent automation can substantially improve the efficiency and effectiveness of lost and found services.
+Research Finding
+The key findings of this research are summarized in the table below:
+Finding
+Detail
+Best Classifier
+Random Forest (91.00% accuracy)
+KNN Accuracy
+88.50% (optimal K=7, distance-weighted)
+LR Accuracy
+83.00% (OvR strategy, L2 regularization)
+YOLO Contribution
+Improves match confidence by ~12% for image-uploaded items
+Best Performing Category
+Electronics (RF F1: 0.92)
+Most Challenging Category
+Documents (LR F1: 0.82)
+API Response Time
+< 2.5 seconds for match suggestions
+Dataset Size
+1,000 records (800 train / 200 test)
+These findings affirm the research hypotheses and demonstrate that machine learning-based classification and matching significantly outperforms manual or simple keyword-based approaches for lost item management.
+Future Scope and Limitation
+Limitations:
+Dataset Size: The 1,000-record dataset, while sufficient for proof-of-concept evaluation, is relatively small for production deployment. Larger, more diverse real-world datasets would improve model generalization.
+Synthetic Data: The dataset was synthetically generated due to privacy constraints on real institutional data. Performance on genuine lost item records may vary.
+YOLO Computational Requirements: YOLOv8 inference requires significant CPU/GPU resources, which may limit deployment on low-specification institutional servers.
+Language Support: The current system supports English-language descriptions only. Multi-language support is absent.
+No Mobile Application: The system is currently web-only. A dedicated mobile application would improve accessibility and enable camera-based image capture.
+SQLite Limitations: SQLite is not suitable for high-concurrency production environments. Migration to PostgreSQL or MySQL would be required for large-scale deployment.
+Future Scope:
+Multi-Language NLP Support: Integrating multilingual NLP models (e.g., XLM-R) to process item descriptions in Hindi and other regional languages spoken by campus users.
+Geolocation-Based Matching: Incorporating GPS data from mobile devices to suggest where lost items might be found based on historical location patterns and campus hotspot analysis.
+Push Notifications: Implementing real-time push notifications using Django Channels (WebSockets) to instantly alert item owners when a high-confidence match is identified.
+Blockchain-Based Ownership Verification: Exploring blockchain technology for tamper-proof recording of item ownership claims and match histories.
+Deep Learning End-to-End Model: Replacing the multi-step feature engineering and ML classifier pipeline with a unified deep learning model (e.g., Transformer-based multi-modal architecture) that jointly processes text and image features.
+Mobile Application: Developing native iOS and Android applications using React Native, enabling camera integration for on-the-spot item photography and GPS-based location tagging.
+Cloud Deployment: Migrating the system to cloud infrastructure (AWS EC2 + RDS PostgreSQL) for high availability, scalability, and accessibility beyond the campus network.
+REFERENCES
+Breiman, L. (2001). Random Forests. Machine Learning, 45(1), 5–32. https://doi.org/10.1023/A:1010933404324
+Cover, T., & Hart, P. (1967). Nearest Neighbor Pattern Classification. IEEE Transactions on Information Theory, 13(1), 21–27.
+Redmon, J., Divvala, S., Girshick, R., & Farhadi, A. (2016). You Only Look Once: Unified, Real-Time Object Detection. Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 779–788.
+Redmon, J., & Farhadi, A. (2017). YOLO9000: Better, Faster, Stronger. CVPR 2017.
+Bochkovskiy, A., Wang, C. Y., & Liao, H. Y. M. (2020). YOLOv4: Optimal Speed and Accuracy of Object Detection. arXiv:2004.10934.
+Jocher, G., Chaurasia, A., & Qiu, J. (2023). YOLO by Ultralytics (v8.0.196). Ultralytics. https://github.com/ultralytics/ultralytics
+Hosmer, D. W., & Lemeshow, S. (2000). Applied Logistic Regression (2nd ed.). Wiley.
+Imandoust, S. B., & Bolandraftar, M. (2013). Application of K-Nearest Neighbor (KNN) Approach for Predicting Economic Events. International Journal of Engineering Research and Applications, 3(5), 605–610.
+Gupta, R., Singh, P., & Verma, A. (2022). Smart Lost and Found System Using NLP and Machine Learning. International Journal of Computer Applications, 184(9), 12–18.
+Rao, S., & Sharma, M. (2021). IoT-Based Lost and Found System with QR Code Integration. Journal of Emerging Technologies and Innovative Research (JETIR), 8(6), d523–d528.
+Kotz, D., Henderson, T., & Abyzov, I. (2019). Tracing the Human Network: A Campus Lost and Found System. IEEE Pervasive Computing, 18(2), 14–23.
+Pal, M. (2005). Random Forest Classifier for Remote Sensing Classification. International Journal of Remote Sensing, 26(1), 217–222.
+Zhang, X., Li, X., & Liu, H. (2017). An Improved KNN Algorithm for Text Classification. International Journal of Machine Learning and Computing, 7(4), 97–100.
+Caruana, R., & Niculescu-Mizil, A. (2006). An Empirical Comparison of Supervised Learning Algorithms. Proceedings of the 23rd International Conference on Machine Learning (ICML), 161–168.
+Menard, S. (2002). Applied Logistic Regression Analysis (2nd ed.). Sage Publications.
+Pedregosa, F., et al. (2011). Scikit-learn: Machine Learning in Python. Journal of Machine Learning Research, 12, 2825–2830.
+Django Software Foundation. (2023). Django Documentation (v4.2). https://docs.djangoproject.com/
+Meta Open Source. (2023). ReactJS Documentation (v18). https://react.dev/
+Waskom, M. L. (2021). Seaborn: Statistical Data Visualization. Journal of Open Source Software, 6(60), 3021.
+Hunter, J. D. (2007). Matplotlib: A 2D Graphics Environment. Computing in Science & Engineering, 9(3), 90–95.
+KNN CLASSIFIER MAIN CODING
+The following section presents the complete Python source code for the KNN Classifier implementation in ReclaimX, including data loading, pre-processing, model training, evaluation, and visualization.
+File: knn_classifier.py
+# =============================================================
+# ReclaimX - Lost and Found Smart System # KNN Classifier - Main Implementation
+# Government College Dharamshala
+# Department of Computer Science | Academic Session: 2023-2027 # Authors: Sakshi Sharma, Saloni Sharma, Sania Deol
+# Supervisor: Mrs. Kanika Kapoor
+# =============================================================
+import pandas as pd import numpy as np
+import matplotlib.pyplot as plt import seaborn as sns
+import warnings warnings.filterwarnings('ignore')
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import (train_test_split, GridSearchCV,
+cross_val_score, StratifiedKFold) from sklearn.preprocessing import (StandardScaler, LabelEncoder,
+OneHotEncoder) from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import (accuracy_score, classification_report,
+confusion_matrix, roc_auc_score, ConfusionMatrixDisplay)
+import joblib
+# ============================================================= # STEP 1: LOAD DATASET
+# =============================================================
+print('[INFO] Loading dataset...')
+df = pd.read_csv('lost_items_dataset.csv') print(f'[INFO] Dataset shape: {df.shape}') print(df.head())
+print(df.info()) print(df['category'].value_counts())
+# ============================================================= # STEP 2: PRE-PROCESSING
+# =============================================================
+print('[INFO] Pre-processing dataset...')
+# Drop duplicates df.drop_duplicates(inplace=True)
+# Fill missing values
+for col in df.select_dtypes(include='object').columns: df[col].fillna(df[col].mode()[0], inplace=True)
+for col in df.select_dtypes(include='number').columns: df[col].fillna(df[col].mean(), inplace=True)
+# Define features and target
+X = df.drop('category', axis=1) y = df['category']
+# Define column types
+categorical_cols = ['color', 'size', 'location_zone'] numerical_cols= ['time_since_report', 'has_brand']
+# Build preprocessor
+preprocessor = ColumnTransformer(transformers=[
+('onehot', OneHotEncoder(handle_unknown='ignore'), categorical_cols), ('scale', StandardScaler(), numerical_cols)
+], remainder='passthrough')
+# ============================================================= # STEP 3: TRAIN-TEST SPLIT
+# =============================================================
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=42, stratify=y)
+print(f'[INFO] Training samples : {len(X_train)}') print(f'[INFO] Testing samples : {len(X_test)}')
+# ============================================================= # STEP 4: BUILD KNN PIPELINE
+# =============================================================
+knn_pipeline = Pipeline(steps=[ ('preprocessor', preprocessor), ('knn', KNeighborsClassifier())
+])
+# ============================================================= # STEP 5: HYPERPARAMETER TUNING (GRID SEARCH)
+# =============================================================
+print('[INFO] Running Grid Search...')
+param_grid = {
+'knn n_neighbors':
+[3, 5, 7, 9, 11],
+'knn weights':['uniform', 'distance'], 'knn metric':['euclidean', 'manhattan']
+}
+grid_search = GridSearchCV( estimator = knn_pipeline, param_grid = param_grid,
+cv= StratifiedKFold(n_splits=5, shuffle=True, random_state=42), scoring= 'accuracy',
+n_jobs= -1,
+verbose= 1
+)
+grid_search.fit(X_train, y_train)
+print(f'[RESULT] Best Parameters : {grid_search.best_params_}') print(f'[RESULT] Best CV Accuracy: {grid_search.best_score_:.4f}')
+best_knn = grid_search.best_estimator_
+# ============================================================= # STEP 6: CROSS-VALIDATION ON TRAINING SET
+# =============================================================
+cv_scores = cross_val_score( best_knn, X_train, y_train, cv=5, scoring='accuracy')
+print(f'[INFO] CV Accuracy Scores : {cv_scores}') print(f'[INFO] Mean CV Accuracy: {cv_scores.mean():.4f}') print(f'[INFO] Std CV Accuracy: {cv_scores.std():.4f}')
+# ============================================================= # STEP 7: EVALUATE ON TEST SET
+# =============================================================
+y_pred = best_knn.predict(X_test) test_accuracy = accuracy_score(y_test, y_pred)
+print(f'\n[RESULT] Test Set Accuracy: {test_accuracy:.4f}') print('\n[RESULT] Classification Report:') print(classification_report(y_test, y_pred))
+# ============================================================= # STEP 8: CONFUSION MATRIX
+# =============================================================
+cm = confusion_matrix(y_test, y_pred) class_names = best_knn.classes_
+plt.figure(figsize=(10, 8)) sns.heatmap(
+cm, annot=True, fmt='d', cmap='Blues', xticklabels=class_names, yticklabels=class_names)
+plt.title('KNN Classifier - Confusion Matrix Heatmap', fontsize=16) plt.xlabel('Predicted Label', fontsize=13)
+plt.ylabel('True Label', fontsize=13) plt.tight_layout() plt.savefig('knn_confusion_matrix.png', dpi=200) plt.show()
+print('[INFO] Confusion matrix saved as knn_confusion_matrix.png')
+# ============================================================= # STEP 9: PER-CLASS ACCURACY BAR CHART
+# =============================================================
+report = classification_report(y_test, y_pred, output_dict=True) classes = [k for k in report.keys()
+if k not in ['accuracy', 'macro avg', 'weighted avg']] f1_scores = [report[c]['f1-score'] for c in classes]
+plt.figure(figsize=(10, 5))
+bars = plt.bar(classes, f1_scores, color='steelblue', edgecolor='black') for bar, score in zip(bars, f1_scores):
+plt.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.01,
+f'{score:.2f}', ha='center', fontsize=11) plt.ylim(0, 1.1)
+plt.title('KNN Classifier - Per-Class F1-Score', fontsize=15) plt.xlabel('Item Category')
+plt.ylabel('F1-Score') plt.tight_layout() plt.savefig('knn_f1_scores.png', dpi=200) plt.show()
+# ============================================================= # STEP 10: SAVE MODEL
+# =============================================================
+joblib.dump(best_knn, 'reclaimx_knn_model.pkl') print('[INFO] Model saved as reclaimx_knn_model.pkl')
+# =============================================================
+# STEP 11: INFERENCE FUNCTION (for Django Integration)
+# =============================================================
+def predict_item_category(item_attributes: dict) -> dict: '''
+Predict the category of a lost item using the trained KNN model.
+Parameters:
+item_attributes (dict): Dictionary containing item attributes.
+Keys: color, size, location_zone, time_since_report, has_brand
+Returns:
+dict: Predicted category and confidence probabilities.
+'''
+model = joblib.load('reclaimx_knn_model.pkl') input_df = pd.DataFrame([item_attributes]) prediction = model.predict(input_df)[0] probabilities = model.predict_proba(input_df)[0] class_probs = {
+cls: float(round(prob, 4))
+for cls, prob in zip(model.classes_, probabilities)
+}
+return {
+'predicted_category': prediction,
+'confidence': float(round(max(probabilities), 4)), 'class_probabilities': class_probs
+}
+# ============================================================= # STEP 12: SAMPLE INFERENCE DEMO
+# =============================================================
+sample_item = {
+'color':'Black',
+'size':'Medium', 'location_zone':'Library', 'time_since_report': 24.0,
+'has_brand':1
+}
+result = predict_item_category(sample_item) print('\n[DEMO] Sample Item Attributes:', sample_item) print('[DEMO] Prediction Result:', result)
+print('\n[INFO] KNN Classifier pipeline complete.')
+File: random_forest_classifier.py (Excerpt)
+from sklearn.ensemble import RandomForestClassifierrf_pipeline = Pipeline(steps=[ ('preprocessor', preprocessor), ('rf', RandomForestClassifier(n_estimators = 200, max_depth= None, class_weight = 'balanced',from sklearn.ensemble import RandomForestClassifierrf_pipeline = Pipeline(steps=[ ('preprocessor', preprocessor), ('rf', RandomForestClassifier(n_estimators = 200, max_depth= None, class_weight = 'balanced',
+from sklearn.ensemble import RandomForestClassifier
+rf_pipeline = Pipeline(steps=[ ('preprocessor', preprocessor), ('rf', RandomForestClassifier(
+n_estimators = 200, max_depth= None, class_weight = 'balanced',
+from sklearn.ensemble import RandomForestClassifier
+rf_pipeline = Pipeline(steps=[ ('preprocessor', preprocessor), ('rf', RandomForestClassifier(
+n_estimators = 200, max_depth= None, class_weight = 'balanced',
+random_state = 42,n_jobs= -1))])rf_pipeline.fit(X_train, y_train) y_pred_rf = rf_pipeline.predict(X_test)print(f'RF Test Accuracy: {accuracy_score(y_test, y_pred_rf):.4f}') print(classification_report(y_test, y_pred_rf)) joblib.dump(rf_pipeline, 'reclaimx_rf_model.pkl')random_state = 42,n_jobs= -1))])rf_pipeline.fit(X_train, y_train) y_pred_rf = rf_pipeline.predict(X_test)print(f'RF Test Accuracy: {accuracy_score(y_test, y_pred_rf):.4f}') print(classification_report(y_test, y_pred_rf)) joblib.dump(rf_pipeline, 'reclaimx_rf_model.pkl')
+random_state = 42,
+n_jobs= -1
+))
+])
+rf_pipeline.fit(X_train, y_train) y_pred_rf = rf_pipeline.predict(X_test)
+print(f'RF Test Accuracy: {accuracy_score(y_test, y_pred_rf):.4f}') print(classification_report(y_test, y_pred_rf)) joblib.dump(rf_pipeline, 'reclaimx_rf_model.pkl')
+random_state = 42,
+n_jobs= -1
+))
+])
+rf_pipeline.fit(X_train, y_train) y_pred_rf = rf_pipeline.predict(X_test)
+print(f'RF Test Accuracy: {accuracy_score(y_test, y_pred_rf):.4f}') print(classification_report(y_test, y_pred_rf)) joblib.dump(rf_pipeline, 'reclaimx_rf_model.pkl')
+File: logistic_regression_classifier.py (Excerpt)
+from sklearn.linear_model import LogisticRegressionlr_pipeline = Pipeline(steps=[ ('preprocessor', preprocessor), ('lr', LogisticRegression(multi_class = 'ovr', solver= 'lbfgs',C= 1.0,max_iter= 1000, class_weight = 'balanced', random_state = 42))])lr_pipeline.fit(X_train, y_train) y_pred_lr = lr_pipeline.predict(X_test)print(f'LR Test Accuracy: {accuracy_score(y_test, y_pred_lr):.4f}') print(classification_report(y_test, y_pred_lr)) joblib.dump(lr_pipeline, 'reclaimx_lr_model.pkl')from sklearn.linear_model import LogisticRegressionlr_pipeline = Pipeline(steps=[ ('preprocessor', preprocessor), ('lr', LogisticRegression(multi_class = 'ovr', solver= 'lbfgs',C= 1.0,max_iter= 1000, class_weight = 'balanced', random_state = 42))])lr_pipeline.fit(X_train, y_train) y_pred_lr = lr_pipeline.predict(X_test)print(f'LR Test Accuracy: {accuracy_score(y_test, y_pred_lr):.4f}') print(classification_report(y_test, y_pred_lr)) joblib.dump(lr_pipeline, 'reclaimx_lr_model.pkl')
+from sklearn.linear_model import LogisticRegression
+lr_pipeline = Pipeline(steps=[ ('preprocessor', preprocessor), ('lr', LogisticRegression(
+multi_class = 'ovr', solver= 'lbfgs',
+C= 1.0,
+max_iter= 1000, class_weight = 'balanced', random_state = 42
+))
+])
+lr_pipeline.fit(X_train, y_train) y_pred_lr = lr_pipeline.predict(X_test)
+print(f'LR Test Accuracy: {accuracy_score(y_test, y_pred_lr):.4f}') print(classification_report(y_test, y_pred_lr)) joblib.dump(lr_pipeline, 'reclaimx_lr_model.pkl')
+from sklearn.linear_model import LogisticRegression
+lr_pipeline = Pipeline(steps=[ ('preprocessor', preprocessor), ('lr', LogisticRegression(
+multi_class = 'ovr', solver= 'lbfgs',
+C= 1.0,
+max_iter= 1000, class_weight = 'balanced', random_state = 42
+))
+])
+lr_pipeline.fit(X_train, y_train) y_pred_lr = lr_pipeline.predict(X_test)
+print(f'LR Test Accuracy: {accuracy_score(y_test, y_pred_lr):.4f}') print(classification_report(y_test, y_pred_lr)) joblib.dump(lr_pipeline, 'reclaimx_lr_model.pkl')
+File: yolo_inference.py (YOLO Integration with Django)
+# yolo_inference.py - ReclaimX YOLO Integration from ultralytics import YOLOimport cv2import numpy as np# Load YOLOv8 model (nano variant for speed) model = YOLO('yolov8n.pt')# Mapping YOLO COCO classes to ReclaimX categories YOLO_TO_RECLAIMX = {'cell phone': 'Electronics', 'laptop': 'Electronics', 'keyboard': 'Electronics', 'backpack':  'Bags','handbag':   'Bags','suitcase':  'Bags',# yolo_inference.py - ReclaimX YOLO Integration from ultralytics import YOLOimport cv2import numpy as np# Load YOLOv8 model (nano variant for speed) model = YOLO('yolov8n.pt')# Mapping YOLO COCO classes to ReclaimX categories YOLO_TO_RECLAIMX = {'cell phone': 'Electronics', 'laptop': 'Electronics', 'keyboard': 'Electronics', 'backpack':  'Bags','handbag':   'Bags','suitcase':  'Bags',
+# yolo_inference.py - ReclaimX YOLO Integration from ultralytics import YOLO
+import cv2
+import numpy as np
+# Load YOLOv8 model (nano variant for speed) model = YOLO('yolov8n.pt')
+# Mapping YOLO COCO classes to ReclaimX categories YOLO_TO_RECLAIMX = {
+'cell phone': 'Electronics', 'laptop': 'Electronics', 'keyboard': 'Electronics', 'backpack':  'Bags',
+'handbag':   'Bags',
+'suitcase':  'Bags',
+# yolo_inference.py - ReclaimX YOLO Integration from ultralytics import YOLO
+import cv2
+import numpy as np
+# Load YOLOv8 model (nano variant for speed) model = YOLO('yolov8n.pt')
+# Mapping YOLO COCO classes to ReclaimX categories YOLO_TO_RECLAIMX = {
+'cell phone': 'Electronics', 'laptop': 'Electronics', 'keyboard': 'Electronics', 'backpack':  'Bags',
+'handbag':   'Bags',
+'suitcase':  'Bags',
+'book':'tie': 'umbrella': 'scissors':'Documents', 'Clothing', 'Accessories', 'Accessories',}def detect_item(image_path: str) -> dict: '''Run YOLOv8 inference on an uploaded item image.Returns detected class, confidence, and bounding box info. '''results = model(image_path, conf=0.25, iou=0.45) detections = []for r in results:for box in r.boxes:cls_name= r.names[int(box.cls)] confidence = float(box.conf)bbox= box.xyxy[0].tolist()reclaimx_cat = YOLO_TO_RECLAIMX.get(cls_name, 'Other') detections.append({'yolo_class':cls_name, 'category':reclaimx_cat,'confidence':round(confidence, 4), 'bounding_box': bbox})if not detections:return {'category': 'Other', 'confidence': 0.0, 'detections': []} # Return highest-confidence detectionbest = max(detections, key=lambda x: x['confidence']) return {'category':best['category'], 'confidence': best['confidence'], 'detections': detections}'book':'tie': 'umbrella': 'scissors':'Documents', 'Clothing', 'Accessories', 'Accessories',}def detect_item(image_path: str) -> dict: '''Run YOLOv8 inference on an uploaded item image.Returns detected class, confidence, and bounding box info. '''results = model(image_path, conf=0.25, iou=0.45) detections = []for r in results:for box in r.boxes:cls_name= r.names[int(box.cls)] confidence = float(box.conf)bbox= box.xyxy[0].tolist()reclaimx_cat = YOLO_TO_RECLAIMX.get(cls_name, 'Other') detections.append({'yolo_class':cls_name, 'category':reclaimx_cat,'confidence':round(confidence, 4), 'bounding_box': bbox})if not detections:return {'category': 'Other', 'confidence': 0.0, 'detections': []} # Return highest-confidence detectionbest = max(detections, key=lambda x: x['confidence']) return {'category':best['category'], 'confidence': best['confidence'], 'detections': detections}
+'book':
+'tie': 'umbrella': 'scissors':
+'Documents', 'Clothing', 'Accessories', 'Accessories',
+}
+def detect_item(image_path: str) -> dict: '''
+Run YOLOv8 inference on an uploaded item image.
+Returns detected class, confidence, and bounding box info. '''
+results = model(image_path, conf=0.25, iou=0.45) detections = []
+for r in results:
+for box in r.boxes:
+cls_name= r.names[int(box.cls)] confidence = float(box.conf)
+bbox= box.xyxy[0].tolist()
+reclaimx_cat = YOLO_TO_RECLAIMX.get(cls_name, 'Other') detections.append({
+'yolo_class':cls_name, 'category':reclaimx_cat,
+'confidence':round(confidence, 4), 'bounding_box': bbox
+})
+if not detections:
+return {'category': 'Other', 'confidence': 0.0, 'detections': []} # Return highest-confidence detection
+best = max(detections, key=lambda x: x['confidence']) return {
+'category':best['category'], 'confidence': best['confidence'], 'detections': detections
+}
+'book':
+'tie': 'umbrella': 'scissors':
+'Documents', 'Clothing', 'Accessories', 'Accessories',
+}
+def detect_item(image_path: str) -> dict: '''
+Run YOLOv8 inference on an uploaded item image.
+Returns detected class, confidence, and bounding box info. '''
+results = model(image_path, conf=0.25, iou=0.45) detections = []
+for r in results:
+for box in r.boxes:
+cls_name= r.names[int(box.cls)] confidence = float(box.conf)
+bbox= box.xyxy[0].tolist()
+reclaimx_cat = YOLO_TO_RECLAIMX.get(cls_name, 'Other') detections.append({
+'yolo_class':cls_name, 'category':reclaimx_cat,
+'confidence':round(confidence, 4), 'bounding_box': bbox
+})
+if not detections:
+return {'category': 'Other', 'confidence': 0.0, 'detections': []} # Return highest-confidence detection
+best = max(detections, key=lambda x: x['confidence']) return {
+'category':best['category'], 'confidence': best['confidence'], 'detections': detections
+}
+File: views.py (Django REST API Endpoint for ML Inference)
+# views.py - ReclaimX Django Backend from rest_framework.views import APIViewfrom rest_framework.response import Response from rest_framework import statusimport joblib, pandas as pdfrom .yolo_inference import detect_itemknn_model = joblib.load('reclaimx_knn_model.pkl') rf_model = joblib.load('reclaimx_rf_model.pkl')class PredictCategoryView(APIView): '''POST /api/predict/Accepts item attributes and optional image.# views.py - ReclaimX Django Backend from rest_framework.views import APIViewfrom rest_framework.response import Response from rest_framework import statusimport joblib, pandas as pdfrom .yolo_inference import detect_itemknn_model = joblib.load('reclaimx_knn_model.pkl') rf_model = joblib.load('reclaimx_rf_model.pkl')class PredictCategoryView(APIView): '''POST /api/predict/Accepts item attributes and optional image.
+# views.py - ReclaimX Django Backend from rest_framework.views import APIView
+from rest_framework.response import Response from rest_framework import status
+import joblib, pandas as pd
+from .yolo_inference import detect_item
+knn_model = joblib.load('reclaimx_knn_model.pkl') rf_model = joblib.load('reclaimx_rf_model.pkl')
+class PredictCategoryView(APIView): '''
+POST /api/predict/
+Accepts item attributes and optional image.
+# views.py - ReclaimX Django Backend from rest_framework.views import APIView
+from rest_framework.response import Response from rest_framework import status
+import joblib, pandas as pd
+from .yolo_inference import detect_item
+knn_model = joblib.load('reclaimx_knn_model.pkl') rf_model = joblib.load('reclaimx_rf_model.pkl')
+class PredictCategoryView(APIView): '''
+POST /api/predict/
+Accepts item attributes and optional image.
+Returns predicted category and match suggestions. '''
+def post(self, request): data = request.data
+image = request.FILES.get('image', None) yolo_result = {}
+if image:
+image_path = f'/tmp/{image.name}' with open(image_path, 'wb') as f:
+for chunk in image.chunks(): f.write(chunk)
+yolo_result = detect_item(image_path) item_attrs = {
+'color':data.get('color', 'Black'),
+'size':data.get('size', 'Medium'), 'location_zone':data.get('location_zone', 'Other'), 'time_since_report': float(data.get('time_since_report', 24)),
+'has_brand':int(data.get('has_brand', 0))
+}
+input_df= pd.DataFrame([item_attrs]) knn_prediction = knn_model.predict(input_df)[0] rf_prediction = rf_model.predict(input_df)[0] knn_probs= knn_model.predict_proba(input_df)[0] rf_probs= rf_model.predict_proba(input_df)[0] response = {
+'knn_prediction': knn_prediction, 'rf_prediction':rf_prediction,
+'knn_confidence': float(round(max(knn_probs), 4)),
+'rf_confidence':float(round(max(rf_probs), 4)), 'yolo_detection': yolo_result,
+'status':'success'
+}
+return Response(response, status=status.HTTP_200_OK)

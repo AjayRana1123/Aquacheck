@@ -17,28 +17,20 @@ def main():
         input_data = sys.stdin.read()
         data = json.loads(input_data)
         
-        # Features mapping
-        features = [
-            data.get('ph', 0),
-            data.get('Hardness', 0),
-            data.get('Solids', 0),
-            data.get('Chloramines', 0),
-            data.get('Sulfate', 0),
-            data.get('Conductivity', 0),
-            data.get('Organic_carbon', 0),
-            data.get('Trihalomethanes', 0),
-            data.get('Turbidity', 0)
-        ]
-        
         # Paths to ML models (relative to this script — works on any server)
-        model_path = os.path.join(BASE_DIR, 'models', 'water_quality_model.pkl')
-        scaler_path = os.path.join(BASE_DIR, 'models', 'water_scaler.pkl')
+        model_path = os.path.join(BASE_DIR, 'models', 'water_potability_xgb_model.pkl')
+        scaler_path = os.path.join(BASE_DIR, 'models', 'scaler (1).pkl')
+        features_path = os.path.join(BASE_DIR, 'models', 'features (1).pkl')
         
         import joblib
         
-        # Load the models
+        # Load the models and feature names
         model = joblib.load(model_path)
         scaler = joblib.load(scaler_path)
+        feature_names = joblib.load(features_path)
+        
+        # Build features array dynamically based on features list
+        features = [data.get(f, 0) for f in feature_names]
             
         # Transform features
         features_array = np.array(features).reshape(1, -1)
